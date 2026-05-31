@@ -40,7 +40,7 @@ export default function Hero() {
     <section
       ref={ref}
       id="hero"
-      className="relative h-screen min-h-[600px] overflow-hidden flex items-center"
+      className="relative h-screen min-h-[600px] overflow-hidden flex flex-col"
       aria-label="Hero – Cresta de Gallo"
     >
       {/* Parallax background */}
@@ -78,154 +78,182 @@ export default function Hero() {
         />
       </motion.div>
 
-      {/* Main content */}
+      {/* ── Main content: fills height, stacks vertically on mobile ── */}
       <motion.div
-        className="relative z-10 w-full px-6 sm:px-10 md:px-16 lg:px-24 flex items-center justify-between gap-6"
+        className="relative z-10 flex-1 flex flex-col justify-between pt-28 pb-6 lg:pt-0 lg:pb-0 lg:flex-row lg:items-center"
         style={{ y: textY, opacity }}
       >
-        {/* Left: text */}
-        <div className="w-full lg:max-w-xl">
+        {/* ── Text block ─────────────────────────────────────────── */}
+        <div className="max-w-7xl w-full mx-auto px-6 flex items-start lg:items-center justify-between gap-6 lg:flex-1">
+          <div className="w-full lg:max-w-xl">
+            <motion.div
+              className="inline-flex items-center gap-2 glass px-3 py-1.5 rounded-full mb-5 text-xs font-body text-white/90 tracking-widest uppercase"
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.7, delay: 0.2 }}
+            >
+              <MdLocationOn className="text-gold" />
+              Romblon, Philippines
+            </motion.div>
+
+            <motion.h1
+              className="font-display font-light text-white leading-none mb-4"
+              style={{ fontSize: "clamp(2.8rem, 8vw, 7rem)" }}
+              initial={{ opacity: 0, x: -40 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.9, delay: 0.4 }}
+            >
+              Cresta de
+              <br />
+              <span
+                className="italic font-semibold"
+                style={{ color: "#FFB84C" }}
+              >
+                Gallo
+              </span>
+            </motion.h1>
+
+            <motion.p
+              className="font-body text-white/70 text-sm sm:text-base leading-relaxed max-w-xs sm:max-w-sm"
+              initial={{ opacity: 0, x: -30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+            >
+              A hidden sandbar paradise in the heart of the Philippines — wild,
+              untouched, and unforgettable.
+            </motion.p>
+
+            {/* Scroll indicator — desktop, inline with text */}
+            <motion.div
+              className="hidden lg:flex mt-10 items-center gap-3 text-white/50"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1.5 }}
+            >
+              <motion.div
+                animate={{ y: [0, 6, 0] }}
+                transition={{ duration: 1.5, repeat: Infinity }}
+              >
+                <FiChevronDown size={18} />
+              </motion.div>
+              <span className="font-body text-xs tracking-[0.3em] uppercase">
+                Scroll
+              </span>
+            </motion.div>
+          </div>
+
+          {/* Desktop thumbnail strip */}
           <motion.div
-            className="inline-flex items-center gap-2 glass px-3 py-1.5 rounded-full mb-5 text-xs font-body text-white/90 tracking-widest uppercase"
-            initial={{ opacity: 0, x: -20 }}
+            className="hidden lg:flex flex-col gap-3 shrink-0"
+            initial={{ opacity: 0, x: 40 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.7, delay: 0.2 }}
+            transition={{ duration: 0.9, delay: 0.6 }}
           >
-            <MdLocationOn className="text-gold" />
-            Romblon, Philippines
+            {thumbs.map((thumb, i) => (
+              <motion.div
+                key={i}
+                className="relative w-36 h-24 rounded-xl overflow-hidden cursor-pointer"
+                onClick={() => handleThumbClick(thumb.src)}
+                whileHover={{ scale: 1.05, x: -4 }}
+                transition={{ duration: 0.2 }}
+              >
+                <img
+                  src={thumb.src}
+                  alt={thumb.alt}
+                  className="w-full h-full object-cover"
+                />
+                <motion.div
+                  className="absolute inset-0 bg-black/40 rounded-xl"
+                  animate={{ opacity: activeBg === thumb.src ? 0 : 1 }}
+                  transition={{ duration: 0.3 }}
+                />
+                {activeBg === thumb.src && (
+                  <motion.div
+                    layoutId="activeThumbDesktop"
+                    className="absolute inset-0 rounded-xl ring-2 ring-gold shadow-lg shadow-gold/40"
+                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                  />
+                )}
+                {activeBg === thumb.src && (
+                  <motion.div
+                    layoutId="activeDotDesktop"
+                    className="absolute bottom-1.5 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-gold"
+                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                  />
+                )}
+              </motion.div>
+            ))}
           </motion.div>
-
-          <motion.h1
-            className="font-display font-light text-white leading-none mb-4"
-            style={{ fontSize: "clamp(2.8rem, 8vw, 7rem)" }}
-            initial={{ opacity: 0, x: -40 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.9, delay: 0.4 }}
-          >
-            Cresta de
-            <br />
-            <span className="italic font-semibold" style={{ color: "#FFB84C" }}>
-              Gallo
-            </span>
-          </motion.h1>
-
-          <motion.p
-            className="font-body text-white/70 text-sm sm:text-base md:text-lg leading-relaxed max-w-xs sm:max-w-sm"
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-          >
-            A hidden sandbar paradise in the heart of the Philippines — wild,
-            untouched, and unforgettable.
-          </motion.p>
         </div>
 
-        {/* Right: thumbnail strip — desktop only */}
+        {/* ── Mobile bottom section: thumbs + scroll cue ─────────── */}
         <motion.div
-          className="hidden lg:flex flex-col gap-3 shrink-0"
-          initial={{ opacity: 0, x: 40 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.9, delay: 0.6 }}
+          className="lg:hidden flex flex-col items-center gap-4 pb-20 px-6"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.8 }}
         >
-          {thumbs.map((thumb, i) => (
-            <motion.div
-              key={i}
-              className="relative w-36 h-24 rounded-xl overflow-hidden cursor-pointer"
-              onClick={() => handleThumbClick(thumb.src)}
-              whileHover={{ scale: 1.05, x: -4 }}
-              transition={{ duration: 0.2 }}
-            >
-              <img
-                src={thumb.src}
-                alt={thumb.alt}
-                className="w-full h-full object-cover"
-              />
+          {/* Thumbnail strip */}
+          <div className="flex gap-2.5">
+            {thumbs.map((thumb, i) => (
               <motion.div
-                className="absolute inset-0 bg-black/40 rounded-xl"
-                animate={{ opacity: activeBg === thumb.src ? 0 : 1 }}
-                transition={{ duration: 0.3 }}
-              />
-              {activeBg === thumb.src && (
-                <motion.div
-                  layoutId="activeThumbDesktop"
-                  className="absolute inset-0 rounded-xl ring-2 ring-gold shadow-lg shadow-gold/40"
-                  transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                key={i}
+                className="relative rounded-xl overflow-hidden cursor-pointer shrink-0"
+                style={{ width: "68px", height: "52px" }}
+                onClick={() => handleThumbClick(thumb.src)}
+                whileTap={{ scale: 0.95 }}
+                transition={{ duration: 0.15 }}
+              >
+                <img
+                  src={thumb.src}
+                  alt={thumb.alt}
+                  className="w-full h-full object-cover"
                 />
-              )}
-              {activeBg === thumb.src && (
                 <motion.div
-                  layoutId="activeDotDesktop"
-                  className="absolute bottom-1.5 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-gold"
-                  transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                  className="absolute inset-0 bg-black/45 rounded-xl"
+                  animate={{ opacity: activeBg === thumb.src ? 0 : 1 }}
+                  transition={{ duration: 0.3 }}
                 />
-              )}
-            </motion.div>
-          ))}
-        </motion.div>
-      </motion.div>
+                {activeBg === thumb.src && (
+                  <motion.div
+                    layoutId="activeThumbMobile"
+                    className="absolute inset-0 rounded-xl ring-2 ring-gold shadow-md shadow-gold/40"
+                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                  />
+                )}
+              </motion.div>
+            ))}
+          </div>
 
-      {/* Mobile thumbnail strip — horizontal, pinned above wave */}
-      <motion.div
-        className="lg:hidden absolute bottom-16 left-0 right-0 z-10 flex justify-center gap-2 px-6"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.8 }}
-        style={{ opacity }}
-      >
-        {thumbs.map((thumb, i) => (
-          <motion.div
-            key={i}
-            className="relative rounded-lg overflow-hidden cursor-pointer shrink-0"
-            style={{ width: "72px", height: "48px" }}
-            onClick={() => handleThumbClick(thumb.src)}
-            whileTap={{ scale: 0.95 }}
-            transition={{ duration: 0.15 }}
+          {/* Active label */}
+          <motion.p
+            key={activeBg}
+            className="font-body text-white/40 text-xs tracking-widest uppercase"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.4 }}
           >
-            <img
-              src={thumb.src}
-              alt={thumb.alt}
-              className="w-full h-full object-cover"
-            />
-            <motion.div
-              className="absolute inset-0 bg-black/40 rounded-lg"
-              animate={{ opacity: activeBg === thumb.src ? 0 : 1 }}
-              transition={{ duration: 0.3 }}
-            />
-            {activeBg === thumb.src && (
-              <motion.div
-                layoutId="activeThumbMobile"
-                className="absolute inset-0 rounded-lg ring-2 ring-gold shadow-md shadow-gold/40"
-                transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              />
-            )}
-            {activeBg === thumb.src && (
-              <motion.div
-                layoutId="activeDotMobile"
-                className="absolute bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-gold"
-                transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              />
-            )}
-          </motion.div>
-        ))}
-      </motion.div>
+            {thumbs.find((t) => t.src === activeBg)?.alt}
+          </motion.p>
 
-      {/* Scroll indicator */}
-      <motion.div
-        className="absolute bottom-8 left-6 sm:left-10 md:left-16 lg:left-24 z-10 flex items-center gap-3 text-white/50"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5 }}
-        style={{ opacity }}
-      >
-        <motion.div
-          animate={{ y: [0, 6, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity }}
-        >
-          <FiChevronDown size={18} />
+          {/* Scroll cue */}
+          <motion.div
+            className="flex items-center gap-2 text-white/35"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.6 }}
+          >
+            <motion.div
+              animate={{ y: [0, 5, 0] }}
+              transition={{ duration: 1.5, repeat: Infinity }}
+            >
+              <FiChevronDown size={16} />
+            </motion.div>
+            <span className="font-body text-xs tracking-[0.3em] uppercase">
+              Scroll
+            </span>
+          </motion.div>
         </motion.div>
-        <span className="font-body text-xs tracking-[0.3em] uppercase">
-          Scroll
-        </span>
       </motion.div>
 
       {/* Bottom wave */}

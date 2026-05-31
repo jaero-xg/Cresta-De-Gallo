@@ -20,7 +20,6 @@ export default function CTA() {
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
       aria-label="Call to Action – Plan Your Visit"
     >
-      {/* Parallax background – sunset scene */}
       <motion.div className="absolute inset-0 z-0" style={{ y: bgY }}>
         <img
           src="/img/CrestaSunset.png"
@@ -35,7 +34,6 @@ export default function CTA() {
           }}
         />
 
-        {/* Dark overlay */}
         <div
           style={{
             position: "absolute",
@@ -46,7 +44,6 @@ export default function CTA() {
         />
       </motion.div>
 
-      {/* Content */}
       <div
         ref={contentRef}
         className="relative z-10 text-center px-6 max-w-4xl mx-auto"
@@ -83,7 +80,6 @@ export default function CTA() {
           any photograph can capture. The only thing missing is you.
         </motion.p>
 
-        {/* Buttons */}
         <motion.div
           className="flex flex-col sm:flex-row gap-4 justify-center"
           initial={{ opacity: 0, y: 30 }}
@@ -110,7 +106,6 @@ export default function CTA() {
           </button>
         </motion.div>
 
-        {/* Bottom stats */}
         <motion.div
           className="mt-20 grid grid-cols-3 gap-4 md:gap-8 max-w-lg mx-auto"
           initial={{ opacity: 0 }}
@@ -134,7 +129,6 @@ export default function CTA() {
         </motion.div>
       </div>
 
-      {/* Top wave */}
       <div className="absolute top-0 left-0 right-0">
         <svg
           viewBox="0 0 1440 60"
@@ -143,7 +137,7 @@ export default function CTA() {
         >
           <path
             d="M0,30 C360,60 1080,0 1440,30 L1440,0 L0,0 Z"
-            fill="#003B73"
+            fill="#002b5c"
           />
         </svg>
       </div>

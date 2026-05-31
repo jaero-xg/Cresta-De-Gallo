@@ -7,7 +7,7 @@ const steps = [
     icon: FiMapPin,
     step: "01",
     title: "Depart from Sibuyan Island",
-    desc: "Your adventure begins at the port of Sibuyan Island, where local bancas await to carry you across the azure waters of the Sibuyan Sea. Pack light—this is a journey back to nature.",
+    desc: "Your adventure begins at the port of Sibuyan Island, where local Bangkas await to carry you across the azure waters of the Sibuyan Sea. Pack light—this is a journey back to nature.",
     detail: "Port departure at dawn",
   },
   {
@@ -21,34 +21,42 @@ const steps = [
     icon: FiCompass,
     step: "03",
     title: "Arrive at the Sandbar",
-    desc: "A sliver of blindingly white sand emerges from turquoise waters\u2014Cresta de Gallo. Step off your banca into ankle-deep warmth and feel the world's noise disappear entirely.",
+    desc: "A sliver of blindingly white sand emerges from turquoise waters—Cresta de Gallo. Step off your bangka into ankle-deep warmth and feel the world's noise disappear entirely.",
     detail: "The hidden paradise awaits",
   },
 ];
 
-function StepCard({ step, index }: { step: (typeof steps)[0]; index: number }) {
+function StepCard({
+  step,
+  index,
+  isLast,
+}: {
+  step: (typeof steps)[0];
+  index: number;
+  isLast: boolean;
+}) {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-80px" });
+  const isInView = useInView(ref, { once: true, margin: "-60px" });
 
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 60 }}
+      initial={{ opacity: 0, y: 50 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{
         duration: 0.8,
-        delay: index * 0.2,
+        delay: index * 0.15,
         ease: [0.22, 1, 0.36, 1],
       }}
-      className="relative flex flex-col md:flex-row gap-8 items-start"
+      className="relative flex gap-5 sm:gap-8 items-start"
     >
-      {/* Step number */}
-      <div className="flex-shrink-0">
+      {/* Left column: icon + connector */}
+      <div className="flex flex-col items-center flex-shrink-0">
         <div
-          className="w-20 h-20 rounded-2xl flex items-center justify-center relative overflow-hidden"
-          style={{ background: "linear-gradient(135deg, #003B73, #00A8CC)" }}
+          className="w-14 h-14 sm:w-20 sm:h-20 rounded-xl sm:rounded-2xl flex items-center justify-center relative overflow-hidden z-10"
+          style={{ background: "#003B73" }}
         >
-          <step.icon className="text-white z-10" size={28} />
+          <step.icon className="text-white z-10" size={20} />
           <div
             className="absolute inset-0 opacity-20"
             style={{
@@ -56,24 +64,24 @@ function StepCard({ step, index }: { step: (typeof steps)[0]; index: number }) {
             }}
           />
         </div>
+
+        {/* Vertical connector line — only between cards, not after last */}
+        {!isLast && (
+          <div className="w-0.5 flex-1 min-h-8 mt-2 bg-gradient-to-b from-cyan/40 to-transparent" />
+        )}
       </div>
 
-      <div className="flex-1 pb-12 md:pb-0">
-        {/* Step label */}
-        <div className="font-body text-xs tracking-[0.3em] uppercase text-cyan mb-2 font-medium">
+      {/* Right column: content */}
+      <div className={`flex-1 ${!isLast ? "pb-8 sm:pb-10" : ""}`}>
+        <div className="font-body text-xs tracking-[0.25em] sm:tracking-[0.3em] uppercase text-cyan mb-1.5 font-medium leading-tight">
           Step {step.step} — {step.detail}
         </div>
-        <h3 className="font-display text-2xl md:text-3xl font-semibold text-ocean mb-4">
+        <h3 className="font-display text-xl sm:text-2xl md:text-3xl font-semibold text-ocean mb-3">
           {step.title}
         </h3>
-        <p className="font-body text-ocean/70 leading-relaxed max-w-lg">
+        <p className="font-body text-sm sm:text-base text-ocean/70 leading-relaxed">
           {step.desc}
         </p>
-
-        {/* Decorative line */}
-        {index < steps.length - 1 && (
-          <div className="hidden md:block absolute left-10 top-20 w-0.5 h-24 bg-gradient-to-b from-cyan/40 to-transparent" />
-        )}
       </div>
     </motion.div>
   );
@@ -91,11 +99,11 @@ export default function Journey() {
     <section
       ref={ref}
       id="journey"
-      className="relative py-28 overflow-hidden"
+      className="relative py-20 sm:py-24 md:py-28 overflow-hidden"
       style={{ background: "var(--sand)" }}
       aria-label="The Journey"
     >
-      {/* Decorative ocean illustration */}
+      {/* Decorative ocean illustration — desktop only */}
       <motion.div
         className="absolute right-0 top-0 bottom-0 w-1/2 pointer-events-none hidden lg:block"
         style={{ x: bgX }}
@@ -109,7 +117,6 @@ export default function Journey() {
             `,
           }}
         />
-        {/* Illustrated boat silhouette using CSS */}
         <div className="absolute right-16 top-1/2 -translate-y-1/2 opacity-10">
           <svg
             width="340"
@@ -118,21 +125,17 @@ export default function Journey() {
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
           >
-            {/* Sail */}
             <path d="M170 20 L170 160 L90 160 Z" fill="#003B73" />
             <path
               d="M170 40 L170 160 L250 160 Z"
               fill="#00A8CC"
               opacity="0.7"
             />
-            {/* Mast */}
             <rect x="168" y="10" width="4" height="170" fill="#003B73" />
-            {/* Hull */}
             <path
               d="M60 170 Q170 220 280 170 L270 195 Q170 240 70 195 Z"
               fill="#003B73"
             />
-            {/* Water waves */}
             <path
               d="M20 220 Q80 205 140 220 Q200 235 260 220 Q310 205 340 220"
               stroke="#00A8CC"
@@ -151,78 +154,85 @@ export default function Journey() {
         </div>
       </motion.div>
 
-      <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-20 items-center">
-        {/* Left: Heading */}
-        <div>
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.7 }}
-            viewport={{ once: true }}
-            className="mb-4"
-          >
-            <span className="font-body text-xs tracking-[0.3em] uppercase text-cyan font-medium">
-              Getting There
-            </span>
-          </motion.div>
-          <motion.h2
-            className="font-display text-5xl md:text-6xl lg:text-7xl font-light text-ocean leading-none mb-8"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.1 }}
-            viewport={{ once: true }}
-          >
-            The
-            <br />
-            <span className="italic font-semibold">Journey</span>
-          </motion.h2>
-          <motion.p
-            className="font-body text-ocean/70 leading-relaxed max-w-md"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            viewport={{ once: true }}
-          >
-            Reaching Cresta de Gallo is an adventure in itself. The remoteness
-            is part of the magic— the further you travel, the more the world's
-            noise fades away.
-          </motion.p>
+      <div className="max-w-7xl mx-auto px-5 sm:px-6">
+        <div className="grid md:grid-cols-2 gap-12 md:gap-20 items-start">
+          {/* Left: Heading block */}
+          <div>
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.7 }}
+              viewport={{ once: true }}
+              className="mb-3"
+            >
+              <span className="font-body text-xs tracking-[0.3em] uppercase text-cyan font-medium">
+                Getting There
+              </span>
+            </motion.div>
 
-          {/* Time estimate */}
-          <motion.div
-            className="mt-10 inline-flex items-center gap-4 border border-ocean/15 rounded-2xl px-6 py-4"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
-            viewport={{ once: true }}
-          >
-            <div className="text-center">
-              <div className="font-display text-3xl font-semibold text-ocean">
-                7–9h
-              </div>
-              <div className="font-body text-xs text-ocean/50 tracking-widest uppercase">
-                Total Journey
-              </div>
-            </div>
-            <div className="w-px h-12 bg-ocean/15" />
-            <div className="text-center">
-              <div className="font-display text-3xl font-semibold text-ocean">
-                2–3h
-              </div>
-              <div className="font-body text-xs text-ocean/50 tracking-widest uppercase">
-                By Banca Boat
-              </div>
-            </div>
-          </motion.div>
-        </div>
+            <motion.h2
+              className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-light text-ocean leading-none mb-6"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.1 }}
+              viewport={{ once: true }}
+            >
+              The
+              <br />
+              <span className="italic font-semibold">Journey</span>
+            </motion.h2>
 
-        {/* Right: Timeline steps */}
-        <div className="relative flex flex-col gap-8">
-          {/* Vertical connector line */}
-          <div className="absolute left-10 top-20 bottom-0 w-0.5 bg-gradient-to-b from-cyan/30 via-ocean/20 to-transparent hidden md:block" />
-          {steps.map((step, i) => (
-            <StepCard key={step.step} step={step} index={i} />
-          ))}
+            <motion.p
+              className="font-body text-sm sm:text-base text-ocean/70 leading-relaxed max-w-md"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              viewport={{ once: true }}
+            >
+              Reaching Cresta de Gallo is an adventure in itself. The remoteness
+              is part of the magic— the further you travel, the more the world's
+              noise fades away.
+            </motion.p>
+
+            {/* Time estimate pills */}
+            <motion.div
+              className="mt-8 sm:mt-10 inline-flex items-center gap-4 border border-ocean/15 rounded-2xl px-5 sm:px-6 py-3.5 sm:py-4"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ duration: 0.8, delay: 0.5 }}
+              viewport={{ once: true }}
+            >
+              <div className="text-center">
+                <div className="font-display text-2xl sm:text-3xl font-semibold text-ocean">
+                  7–9h
+                </div>
+                <div className="font-body text-xs text-ocean/50 tracking-widest uppercase">
+                  Total Journey
+                </div>
+              </div>
+              <div className="w-px h-10 sm:h-12 bg-ocean/15" />
+              <div className="text-center">
+                <div className="font-display text-2xl sm:text-3xl font-semibold text-ocean">
+                  2–3h
+                </div>
+                <div className="font-body text-xs text-ocean/50 tracking-widest uppercase">
+                  By Bangka Boat
+                </div>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Right: Timeline steps */}
+          <div className="relative flex flex-col mt-2 md:mt-0">
+            {steps.map((step, i) => (
+              <StepCard
+                key={step.step}
+                step={step}
+                index={i}
+                isLast={i === steps.length - 1}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </section>

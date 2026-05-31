@@ -11,9 +11,9 @@ export default {
         palm: "#2F855A",
       },
       fontFamily: {
-        display: ['"Cormorant Garamond"', "serif"],
+        display: ['"Cinzel"', "serif"],
         body: ['"DM Sans"', "sans-serif"],
-        accent: ['"Playfair Display"', "serif"],
+        accent: ['"Allura"', "cursive"],
       },
     },
   },
