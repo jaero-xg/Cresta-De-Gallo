@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import React, { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 
 // ── Icons ─────────────────────────────────────────────────────────────────────
@@ -574,17 +574,18 @@ export default function MarineLife() {
           {marineItems.map(({ Icon, title, desc }, i) => (
             <motion.div
               key={title}
-              className="glass rounded-2xl p-4 sm:p-6 group hover:bg-white/20 transition-all duration-300 cursor-default"
+              className="glass rounded-2xl p-5 sm:p-6 group hover:bg-white/20 transition-all duration-300 cursor-default"
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: i * 0.08 }}
               viewport={{ once: true }}
               whileHover={{ scale: 1.03, y: -4 }}
             >
-              <div className="flex sm:block items-start gap-3 sm:gap-0">
+              {/* Icon + title on the same row */}
+              <div className="flex items-center gap-3 mb-2 sm:mb-3">
                 <motion.div
-                  className="flex-shrink-0 mb-0 sm:mb-4 text-4xl"
-                  animate={{ y: [0, -5, 0] }}
+                  className="flex-shrink-0"
+                  animate={{ y: [0, -4, 0] }}
                   transition={{
                     duration: 2 + i * 0.5,
                     repeat: Infinity,
@@ -593,50 +594,54 @@ export default function MarineLife() {
                 >
                   <Icon />
                 </motion.div>
-                <div>
-                  <h3 className="font-display text-base sm:text-lg font-semibold text-white mb-1 sm:mb-2 leading-tight">
-                    {title}
-                  </h3>
-                  <p className="font-body text-white/60 text-xs sm:text-sm leading-relaxed">
-                    {desc}
-                  </p>
-                </div>
+                <h3 className="font-display text-base sm:text-lg font-semibold text-white leading-tight">
+                  {title}
+                </h3>
               </div>
+              {/* Description sits cleanly below */}
+              <p className="font-body text-white/55 text-xs sm:text-sm leading-relaxed">
+                {desc}
+              </p>
             </motion.div>
           ))}
         </div>
 
+        {/* Stats strip */}
         <motion.div
-          className="mt-10 sm:mt-14 md:mt-16 glass rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8
-                     grid grid-cols-3 md:flex md:flex-row items-center justify-between gap-2 md:gap-4"
+          className="mt-10 sm:mt-14 md:mt-16 glass rounded-2xl sm:rounded-3xl
+                     px-6 py-6 sm:px-8 sm:py-8 md:py-12 md:px-16
+                     grid grid-cols-3 md:flex md:flex-row items-center justify-between"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
           {stats.map((stat, i) => (
-            <>
-              <div key={stat.label} className="text-center">
-                <div className="font-body text-[10px] sm:text-xs text-cyan/70 tracking-widest uppercase mb-1">
+            <React.Fragment key={stat.label}>
+              <div className="flex flex-col items-center justify-center text-center flex-1 px-2 md:px-10">
+                {/* Label */}
+                <div className="font-body text-[9px] md:text-[11px] text-cyan/70 tracking-[0.25em] uppercase mb-2 md:mb-4 whitespace-nowrap">
                   {stat.label}
                 </div>
-                <div className="font-display text-xl sm:text-3xl md:text-4xl font-light text-white leading-none">
+                {/* Number + optional unit inline */}
+                <div className="font-display text-2xl sm:text-3xl md:text-5xl font-light text-white leading-none tracking-tight">
                   {stat.value}
                   {stat.unit && (
-                    <span className="block text-xs sm:text-base font-body font-normal text-white/70 mt-0.5">
+                    <span className="font-body text-sm md:text-lg font-light text-white/55 ml-1.5 align-baseline">
                       {stat.unit}
                     </span>
                   )}
                 </div>
-                <div className="font-body text-white/45 text-[10px] sm:text-xs mt-1 leading-snug">
+                {/* Sub-description */}
+                <div className="font-body text-white/40 text-[9px] md:text-[11px] mt-2 md:mt-3 leading-snug max-w-[80px] md:max-w-none">
                   {stat.sub}
                 </div>
               </div>
-              {/* Vertical divider between stats */}
+              {/* Vertical divider */}
               {i < stats.length - 1 && (
-                <div className="hidden md:block h-16 w-px bg-white/10 flex-shrink-0" />
+                <div className="hidden md:block h-12 w-px bg-white/10 flex-shrink-0" />
               )}
-            </>
+            </React.Fragment>
           ))}
         </motion.div>
       </div>
@@ -657,46 +662,3 @@ export default function MarineLife() {
     </section>
   );
 }
-<motion.div
-  className="mt-10 sm:mt-14 md:mt-16 glass rounded-2xl sm:rounded-3xl
-             px-3 py-5 sm:p-6 md:py-10 md:px-12
-             grid grid-cols-3 md:flex md:flex-row items-center justify-between gap-0 md:gap-0"
-  initial={{ opacity: 0, y: 40 }}
-  whileInView={{ opacity: 1, y: 0 }}
-  transition={{ duration: 0.8 }}
-  viewport={{ once: true }}
->
-  {stats.map((stat, i) => (
-    <>
-      <div
-        key={stat.label}
-        className="flex flex-col items-center text-center md:flex-1 px-2 md:px-8"
-      >
-        {/* Label */}
-        <div className="font-body text-[9px] md:text-[11px] text-cyan/70 tracking-[0.25em] uppercase mb-2 md:mb-3 whitespace-nowrap">
-          {stat.label}
-        </div>
-
-        {/* Number + unit inline on same line */}
-        <div className="font-display text-2xl sm:text-3xl md:text-5xl font-light text-white leading-none tracking-tight">
-          {stat.value}
-          {stat.unit && (
-            <span className="font-body text-base md:text-xl font-light text-white/60 ml-1.5 align-baseline">
-              {stat.unit}
-            </span>
-          )}
-        </div>
-
-        {/* Sub-description */}
-        <div className="font-body text-white/40 text-[9px] md:text-xs mt-2 md:mt-3 leading-snug max-w-[80px] md:max-w-[120px]">
-          {stat.sub}
-        </div>
-      </div>
-
-      {/* Vertical divider */}
-      {i < stats.length - 1 && (
-        <div className="hidden md:block h-14 w-px bg-white/10 flex-shrink-0" />
-      )}
-    </>
-  ))}
-</motion.div>;
