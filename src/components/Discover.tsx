@@ -1,194 +1,25 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
-
-const BeachIcon = () => (
-  <svg
-    width="28"
-    height="28"
-    viewBox="-22 -28 44 54"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <circle
-      cx="0"
-      cy="-18"
-      r="9"
-      fill="#F5C518"
-      stroke="#C49A0A"
-      strokeWidth="1.2"
-    />
-    <g stroke="#F5C518" strokeWidth="2" strokeLinecap="round">
-      <line x1="0" y1="-31" x2="0" y2="-35" />
-      <line x1="0" y1="-5" x2="0" y2="-1" />
-      <line x1="10" y1="-26" x2="13" y2="-29" />
-      <line x1="-10" y1="-26" x2="-13" y2="-29" />
-      <line x1="13" y1="-18" x2="17" y2="-18" />
-      <line x1="-13" y1="-18" x2="-17" y2="-18" />
-      <line x1="10" y1="-10" x2="13" y2="-7" />
-      <line x1="-10" y1="-10" x2="-13" y2="-7" />
-    </g>
-    <path
-      d="M-18,4 Q-9,-3 0,4 Q9,11 18,4 L18,16 L-18,16 Z"
-      fill="#4DB8D4"
-      opacity="0.7"
-    />
-    <path
-      d="M-18,4 Q-9,-3 0,4 Q9,11 18,4"
-      fill="none"
-      stroke="#2A9BB5"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-    />
-    <ellipse cx="0" cy="20" rx="20" ry="5" fill="#E8C97A" />
-  </svg>
-);
-
-const DiamondIcon = () => (
-  <svg
-    width="28"
-    height="28"
-    viewBox="-24 -28 48 56"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <polygon
-      points="0,-24 20,-4 0,24 -20,-4"
-      fill="#2563EB"
-      stroke="#1D4ED8"
-      strokeWidth="1.2"
-      strokeLinejoin="round"
-    />
-    <polyline
-      points="-20,-4 -7,-4 0,-24 7,-4 20,-4"
-      fill="none"
-      stroke="#93C5FD"
-      strokeWidth="1.2"
-    />
-    <polyline
-      points="-7,-4 0,24 7,-4"
-      fill="none"
-      stroke="#1D4ED8"
-      strokeWidth="1"
-    />
-    <polygon points="-6,-20 0,-24 4,-14 -2,-12" fill="#BFDBFE" opacity="0.6" />
-  </svg>
-);
-
-const LeafIcon = () => (
-  <svg
-    width="28"
-    height="28"
-    viewBox="-24 -32 48 58"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path
-      d="M0,22 C0,22 -22,-2 -11,-20 C-4,-30 11,-28 15,-17 C22,-2 0,22 0,22 Z"
-      fill="#22C55E"
-      stroke="#16A34A"
-      strokeWidth="1.2"
-      strokeLinejoin="round"
-    />
-    <line
-      x1="0"
-      y1="22"
-      x2="0"
-      y2="-16"
-      stroke="#15803D"
-      strokeWidth="1.8"
-      strokeLinecap="round"
-    />
-    <path
-      d="M0,6 C-7,0 -13,-8 -11,-20"
-      fill="none"
-      stroke="#15803D"
-      strokeWidth="1"
-      strokeLinecap="round"
-      opacity="0.6"
-    />
-    <path
-      d="M0,6 C7,0 13,-8 11,-20"
-      fill="none"
-      stroke="#15803D"
-      strokeWidth="1"
-      strokeLinecap="round"
-      opacity="0.6"
-    />
-  </svg>
-);
-
-const DoveIcon = () => (
-  <svg
-    width="28"
-    height="28"
-    viewBox="-32 -20 60 44"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path
-      d="M-3,8 C-15,3 -15,-12 -3,-14 C3,-15 10,-11 12,-4 C14,3 9,12 1,16 C-8,20 -18,15 -20,6"
-      fill="white"
-      stroke="#C8D8E8"
-      strokeWidth="1.2"
-      strokeLinejoin="round"
-    />
-    <path
-      d="M-3,-10 C3,-22 18,-20 20,-9 C12,-11 3,-10 -3,-10 Z"
-      fill="white"
-      stroke="#C8D8E8"
-      strokeWidth="1.2"
-      strokeLinejoin="round"
-    />
-    <path
-      d="M-3,-10 C3,-22 18,-20 20,-9 C12,-11 3,-10 -3,-10 Z"
-      fill="#E0ECF8"
-      opacity="0.5"
-    />
-    <path
-      d="M-20,6 C-25,0 -26,-7 -21,-12"
-      fill="none"
-      stroke="#C8D8E8"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-    />
-    <path
-      d="M-20,6 C-27,3 -30,-4 -23,-11"
-      fill="none"
-      stroke="#C8D8E8"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-    />
-    <circle
-      cx="12"
-      cy="-4"
-      r="5.5"
-      fill="white"
-      stroke="#C8D8E8"
-      strokeWidth="1.2"
-    />
-    <circle cx="13.5" cy="-5.5" r="1.2" fill="#003B73" />
-    <path d="M17,-3 L22,-2 L17,-1 Z" fill="#F5C518" />
-  </svg>
-);
+import { Discover_Icons } from "../lib/UI_Icons";
 
 const highlights = [
   {
-    icon: BeachIcon,
+    icon: <Discover_Icons.Beach />,
     title: "Powdery White Sand",
     desc: "Pristine shores so fine they squeak underfoot",
   },
   {
-    icon: DiamondIcon,
+    icon: <Discover_Icons.Diamond />,
     title: "Crystal-Clear Waters",
     desc: "Visibility extending 20+ meters into the deep",
   },
   {
-    icon: LeafIcon,
+    icon: <Discover_Icons.Leaf />,
     title: "Unspoiled Nature",
     desc: "No electricity, no crowds—pure wilderness",
   },
   {
-    icon: DoveIcon,
+    icon: <Discover_Icons.Dove />,
     title: "Island Serenity",
     desc: "The deepest peace you will ever know",
   },
@@ -316,9 +147,7 @@ export default function Discover() {
                 transition={{ duration: 0.6, delay: 0.4 + i * 0.1 }}
               >
                 <div className="flex sm:block items-start gap-3 sm:gap-0">
-                  <div className="flex-shrink-0 mb-0 sm:mb-3">
-                    <item.icon />
-                  </div>
+                  <div className="flex-shrink-0 mb-0 sm:mb-3">{item.icon}</div>
                   <div>
                     <h4 className="font-display text-sm font-semibold text-ocean mb-1 group-hover:text-cyan transition-colors leading-tight">
                       {item.title}
