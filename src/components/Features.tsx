@@ -33,8 +33,6 @@ const features = [
   },
 ];
 
-// ── Component ─────────────────────────────────────────────────────────────────
-
 export default function Features() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });

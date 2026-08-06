@@ -51,13 +51,12 @@ function App() {
     { label: "The Journey", id: "journey" },
     { label: "Discover", id: "discover" },
     { label: "Marine Life", id: "marine" },
-    { label: "Gallery", id: "gallery" },
     { label: "Travel Info", id: "travel" },
+    { label: "Gallery", id: "gallery" },
   ];
 
   return (
     <>
-      {/* Navigation */}
       <motion.nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           scrolled ? "glass-dark py-3" : "py-6 bg-transparent"
@@ -74,7 +73,6 @@ function App() {
             Cresta de Gallo
           </button>
 
-          {/* Desktop nav */}
           <div className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
               <button
@@ -93,7 +91,6 @@ function App() {
             </button>
           </div>
 
-          {/* Mobile hamburger */}
           <button
             className="md:hidden flex flex-col gap-1.5 p-2"
             onClick={() => setMenuOpen(!menuOpen)}
@@ -114,7 +111,6 @@ function App() {
           </button>
         </div>
 
-        {/* Mobile menu */}
         <AnimatePresence>
           {menuOpen && (
             <motion.div

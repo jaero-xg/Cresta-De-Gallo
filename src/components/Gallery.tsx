@@ -11,7 +11,6 @@ const galleryItems = [
   { id: 6, title: "Morning Banca", src: "/img/CrestaGallery11.png" },
 ];
 
-/* ── Reusable hover card ─────────────────────────────────────────── */
 function Card({
   item,
   style,
@@ -53,7 +52,6 @@ function Card({
   );
 }
 
-/* ── Main component ──────────────────────────────────────────────── */
 export default function Gallery() {
   const [selected, setSelected] = useState<(typeof galleryItems)[0] | null>(
     null,
@@ -108,9 +106,6 @@ export default function Gallery() {
           </motion.p>
         </div>
 
-        {/* ─────────────────────────────────────────────────────────
-            MOBILE  (<sm): 2-col uniform grid — all square, clean
-        ───────────────────────────────────────────────────────── */}
         <div className="sm:hidden grid grid-cols-2 gap-2">
           {galleryItems.map((item, i) => (
             <Card
@@ -123,18 +118,11 @@ export default function Gallery() {
           ))}
         </div>
 
-        {/* ─────────────────────────────────────────────────────────
-            SM–MD: 2 rows
-            Row 1: hero left (wide landscape) + two portrait stacks right
-            Row 2: three equal landscape cards
-        ───────────────────────────────────────────────────────── */}
         <div className="hidden sm:flex lg:hidden flex-col gap-2 sm:gap-3">
-          {/* Row 1 */}
           <div
             className="grid gap-2 sm:gap-3"
             style={{ gridTemplateColumns: "3fr 2fr" }}
           >
-            {/* Hero */}
             <Card
               item={galleryItems[0]}
               style={{ aspectRatio: "16/10" }}
@@ -173,16 +161,10 @@ export default function Gallery() {
           </div>
         </div>
 
-        {/* ─────────────────────────────────────────────────────────
-            LG+: editorial two-row layout
-            Row 1: large hero (col 1–8) + two cards stacked (col 9–12)
-            Row 2: wide mid (col 1–5) + portrait (col 5–8) + square (col 9–12)
-        ───────────────────────────────────────────────────────── */}
         <div
           className="hidden lg:grid gap-3"
           style={{ gridTemplateColumns: "repeat(12, 1fr)" }}
         >
-          {/* Row 1 — hero */}
           <div
             style={{ gridColumn: "1 / 9", aspectRatio: "16/10" }}
             className="relative overflow-hidden rounded-2xl cursor-zoom-in group"
@@ -195,7 +177,6 @@ export default function Gallery() {
             />
           </div>
 
-          {/* Row 1 — two stacked right */}
           <div style={{ gridColumn: "9 / 13" }} className="flex flex-col gap-3">
             <Card
               item={galleryItems[1]}
@@ -211,7 +192,6 @@ export default function Gallery() {
             />
           </div>
 
-          {/* Row 2 — wide left */}
           <div style={{ gridColumn: "1 / 6" }}>
             <Card
               item={galleryItems[3]}
@@ -220,7 +200,7 @@ export default function Gallery() {
               onClick={() => open(galleryItems[3])}
             />
           </div>
-          {/* Row 2 — portrait mid */}
+
           <div style={{ gridColumn: "6 / 9" }}>
             <Card
               item={galleryItems[4]}
@@ -229,7 +209,6 @@ export default function Gallery() {
               onClick={() => open(galleryItems[4])}
             />
           </div>
-          {/* Row 2 — square right */}
           <div style={{ gridColumn: "9 / 13" }}>
             <Card
               item={galleryItems[5]}
@@ -241,7 +220,6 @@ export default function Gallery() {
         </div>
       </div>
 
-      {/* ── Lightbox ─────────────────────────────────────────────── */}
       <AnimatePresence>
         {selected && (
           <motion.div
@@ -260,7 +238,6 @@ export default function Gallery() {
               transition={{ type: "spring", damping: 22, stiffness: 280 }}
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Image */}
               <div
                 className="w-full rounded-2xl sm:rounded-3xl overflow-hidden"
                 style={{ aspectRatio: "4/3" }}
@@ -272,7 +249,6 @@ export default function Gallery() {
                 />
               </div>
 
-              {/* Caption + counter + nav */}
               <div className="mt-4 flex items-center justify-between px-1">
                 <div>
                   <h3 className="font-display text-xl sm:text-2xl font-light text-white">
@@ -311,7 +287,6 @@ export default function Gallery() {
                 </div>
               </div>
 
-              {/* Close */}
               <button
                 onClick={() => setSelected(null)}
                 className="absolute -top-3 -right-3 sm:-top-4 sm:-right-4 w-9 h-9 sm:w-10 sm:h-10 bg-white rounded-full flex items-center justify-center shadow-lg hover:bg-sand transition-colors"
