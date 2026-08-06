@@ -1,29 +1,6 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
-import { Discover_Icons } from "../lib/UI_Icons";
-
-const highlights = [
-  {
-    icon: <Discover_Icons.Beach />,
-    title: "Powdery White Sand",
-    desc: "Pristine shores so fine they squeak underfoot",
-  },
-  {
-    icon: <Discover_Icons.Diamond />,
-    title: "Crystal-Clear Waters",
-    desc: "Visibility extending 20+ meters into the deep",
-  },
-  {
-    icon: <Discover_Icons.Leaf />,
-    title: "Unspoiled Nature",
-    desc: "No electricity, no crowds—pure wilderness",
-  },
-  {
-    icon: <Discover_Icons.Dove />,
-    title: "Island Serenity",
-    desc: "The deepest peace you will ever know",
-  },
-];
+import { highlights } from "../context/discoverPage";
 
 export default function Discover() {
   const ref = useRef<HTMLDivElement>(null);
@@ -48,9 +25,7 @@ export default function Discover() {
       }}
       aria-label="Discover the Island"
     >
-      {/* KEY CHANGE 1: asymmetric columns — image 5fr, text 6fr — gives text more room */}
       <div className="max-w-7xl mx-auto px-5 sm:px-6 grid lg:grid-cols-[5fr_6fr] gap-10 sm:gap-12 lg:gap-16 items-center">
-        {/* ── Image panel ── */}
         <div className="relative order-2 lg:order-1">
           <motion.div
             className="relative rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl"
@@ -60,7 +35,6 @@ export default function Discover() {
             transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
             viewport={{ once: true }}
           >
-            {/* KEY CHANGE 2: clean Tailwind aspect-ratio classes, no broken hidden-div trick */}
             <div className="w-full aspect-[4/3] lg:aspect-[4/5]">
               <img
                 src="/img/CrestaDiscover-Large.png"
@@ -78,8 +52,6 @@ export default function Discover() {
             </div>
           </motion.div>
 
-          {/* KEY CHANGE 3: accent image pulled inward (-right-4) and smaller (w-36 h-36)
-              so it stays within the image column and doesn't crowd the text panel */}
           <motion.div
             className="absolute -right-4 top-12 w-36 h-36 rounded-2xl overflow-hidden shadow-xl hidden xl:block"
             style={{ y: accentY }}
@@ -96,8 +68,6 @@ export default function Discover() {
           </motion.div>
         </div>
 
-        {/* ── Text panel ── */}
-        {/* KEY CHANGE 4: max-w cap + justify-self-start keeps text well-proportioned */}
         <motion.div
           ref={textRef}
           style={{ y: textY }}
@@ -147,7 +117,9 @@ export default function Discover() {
                 transition={{ duration: 0.6, delay: 0.4 + i * 0.1 }}
               >
                 <div className="flex sm:block items-start gap-3 sm:gap-0">
-                  <div className="flex-shrink-0 mb-0 sm:mb-3">{item.icon}</div>
+                  <div className="flex-shrink-0 mb-0 sm:mb-3">
+                    <item.icon />
+                  </div>
                   <div>
                     <h4 className="font-display text-sm font-semibold text-ocean mb-1 group-hover:text-cyan transition-colors leading-tight">
                       {item.title}
@@ -163,7 +135,6 @@ export default function Discover() {
         </motion.div>
       </div>
 
-      {/* Wave bottom */}
       <div className="wave-divider" style={{ bottom: "-1px" }}>
         <svg
           viewBox="0 0 1440 80"
