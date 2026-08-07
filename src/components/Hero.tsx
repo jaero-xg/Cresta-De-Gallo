@@ -7,13 +7,7 @@ import {
 } from "framer-motion";
 import { FiChevronDown } from "react-icons/fi";
 import { MdLocationOn } from "react-icons/md";
-
-const thumbs = [
-  { src: "/img/Cresta-Hero.png", alt: "Main" },
-  { src: "/img/CrestaGallery1.png", alt: "Sandbar aerial" },
-  { src: "/img/CrestaReef.png", alt: "Crystal waters" },
-  { src: "/img/CrestaGallery5.png", alt: "Sunset shore" },
-];
+import { thumbs } from "../context/HeroPageData";
 
 export default function Hero() {
   const ref = useRef<HTMLDivElement>(null);
@@ -43,7 +37,6 @@ export default function Hero() {
       className="relative h-screen min-h-[600px] overflow-hidden flex flex-col"
       aria-label="Hero – Cresta de Gallo"
     >
-      {/* Parallax background */}
       <motion.div className="absolute inset-0 z-0" style={{ y, scale }}>
         <img
           src={prev}
@@ -83,7 +76,6 @@ export default function Hero() {
         className="relative z-10 flex-1 flex flex-col justify-between pt-28 pb-6 lg:pt-0 lg:pb-0 lg:flex-row lg:items-center"
         style={{ y: textY, opacity }}
       >
-        {/* ── Text block ─────────────────────────────────────────── */}
         <div className="max-w-7xl w-full mx-auto px-6 flex items-start lg:items-center justify-between gap-6 lg:flex-1">
           <div className="w-full lg:max-w-xl">
             <motion.div
@@ -123,7 +115,6 @@ export default function Hero() {
               untouched, and unforgettable.
             </motion.p>
 
-            {/* Scroll indicator — desktop, inline with text */}
             <motion.div
               className="hidden lg:flex mt-10 items-center gap-3 text-white/50"
               initial={{ opacity: 0 }}
@@ -142,7 +133,6 @@ export default function Hero() {
             </motion.div>
           </div>
 
-          {/* Desktop thumbnail strip */}
           <motion.div
             className="hidden lg:flex flex-col gap-3 shrink-0"
             initial={{ opacity: 0, x: 40 }}
@@ -186,14 +176,12 @@ export default function Hero() {
           </motion.div>
         </div>
 
-        {/* ── Mobile bottom section: thumbs + scroll cue ─────────── */}
         <motion.div
           className="lg:hidden flex flex-col items-center gap-4 pb-20 px-6"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.8 }}
         >
-          {/* Thumbnail strip */}
           <div className="flex gap-2.5">
             {thumbs.map((thumb, i) => (
               <motion.div
@@ -225,7 +213,6 @@ export default function Hero() {
             ))}
           </div>
 
-          {/* Active label */}
           <motion.p
             key={activeBg}
             className="font-body text-white/40 text-xs tracking-widest uppercase"
@@ -236,7 +223,6 @@ export default function Hero() {
             {thumbs.find((t) => t.src === activeBg)?.alt}
           </motion.p>
 
-          {/* Scroll cue */}
           <motion.div
             className="flex items-center gap-2 text-white/35"
             initial={{ opacity: 0 }}
@@ -256,7 +242,6 @@ export default function Hero() {
         </motion.div>
       </motion.div>
 
-      {/* Bottom wave */}
       <div className="wave-divider z-20">
         <svg
           viewBox="0 0 1440 80"

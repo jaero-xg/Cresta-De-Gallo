@@ -1,30 +1,6 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
-import { FiAnchor, FiCompass, FiMapPin } from "react-icons/fi";
-
-const steps = [
-  {
-    icon: FiMapPin,
-    step: "01",
-    title: "Depart from Sibuyan Island",
-    desc: "Your adventure begins at the port of Sibuyan Island, where local Bangkas await to carry you across the azure waters of the Sibuyan Sea. Pack light—this is a journey back to nature.",
-    detail: "Port departure at dawn",
-  },
-  {
-    icon: FiAnchor,
-    step: "02",
-    title: "Scenic Boat Ride",
-    desc: "Glide through open waters as the island slowly fades behind you. Watch for dolphins, flying fish, and the kaleidoscope of marine life visible through the crystal-clear depths beneath.",
-    detail: "2–3 hour sea crossing",
-  },
-  {
-    icon: FiCompass,
-    step: "03",
-    title: "Arrive at the Sandbar",
-    desc: "A sliver of blindingly white sand emerges from turquoise waters—Cresta de Gallo. Step off your bangka into ankle-deep warmth and feel the world's noise disappear entirely.",
-    detail: "The hidden paradise awaits",
-  },
-];
+import { steps } from "../context/journeyData";
 
 function StepCard({
   step,
@@ -50,7 +26,6 @@ function StepCard({
       }}
       className="relative flex gap-5 sm:gap-8 items-start"
     >
-      {/* Left column: icon + connector */}
       <div className="flex flex-col items-center flex-shrink-0">
         <div
           className="w-14 h-14 sm:w-20 sm:h-20 rounded-xl sm:rounded-2xl flex items-center justify-center relative overflow-hidden z-10"
@@ -65,13 +40,11 @@ function StepCard({
           />
         </div>
 
-        {/* Vertical connector line — only between cards, not after last */}
         {!isLast && (
           <div className="w-0.5 flex-1 min-h-8 mt-2 bg-gradient-to-b from-cyan/40 to-transparent" />
         )}
       </div>
 
-      {/* Right column: content */}
       <div className={`flex-1 ${!isLast ? "pb-8 sm:pb-10" : ""}`}>
         <div className="font-body text-xs tracking-[0.25em] sm:tracking-[0.3em] uppercase text-cyan mb-1.5 font-medium leading-tight">
           Step {step.step} — {step.detail}
