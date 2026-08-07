@@ -1,44 +1,7 @@
 import { useRef, useState } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
-
-const testimonials = [
-  {
-    quote:
-      "One of the most beautiful islands in the Philippines. I've traveled all 7,641 islands and Cresta de Gallo left me speechless.",
-    author: "Maria Santos",
-    role: "Travel Photographer, Manila",
-    stars: 5,
-  },
-  {
-    quote:
-      "The water is unbelievably clear. You can see every detail of the reef from 5 meters above. It felt like floating in liquid glass.",
-    author: "James Reyes",
-    role: "Marine Biologist, Cebu",
-    stars: 5,
-  },
-  {
-    quote:
-      "A true hidden gem of Romblon. No tourists, no noise—just you and the most pristine sandbar you've ever seen in your life.",
-    author: "Ana Villanueva",
-    role: "Adventure Blogger",
-    stars: 5,
-  },
-  {
-    quote:
-      "We camped overnight on the sandbar. Watching the Milky Way from a remote Philippine island with waves lapping around us—indescribable.",
-    author: "David Lim",
-    role: "Architect & Traveler, Singapore",
-    stars: 5,
-  },
-  {
-    quote:
-      "The journey to get there is half the adventure. Seven hours of sea, and then this tiny strip of paradise appears from nowhere. Magic.",
-    author: "Celine Morales",
-    role: "Digital Nomad",
-    stars: 5,
-  },
-];
+import { testimonials } from "../context/testimonialData";
 
 export default function Testimonials() {
   const [current, setCurrent] = useState(0);
@@ -58,7 +21,6 @@ export default function Testimonials() {
       }}
       aria-label="Visitor Testimonials"
     >
-      {/* Floating decorative orbs */}
       {[...Array(6)].map((_, i) => (
         <motion.div
           key={i}
@@ -80,7 +42,6 @@ export default function Testimonials() {
       ))}
 
       <div className="max-w-5xl mx-auto px-6 relative z-10" ref={ref}>
-        {/* Header */}
         <div className="text-center mb-20">
           <motion.span
             className="font-body text-xs tracking-[0.3em] uppercase text-cyan/70 font-medium"
@@ -100,7 +61,6 @@ export default function Testimonials() {
           </motion.h2>
         </div>
 
-        {/* Main carousel */}
         <div className="relative">
           <AnimatePresence mode="wait">
             <motion.div
@@ -111,7 +71,6 @@ export default function Testimonials() {
               transition={{ duration: 0.5 }}
               className="glass rounded-3xl p-10 md:p-14 text-center"
             >
-              {/* Stars */}
               <div className="flex justify-center gap-1 mb-8">
                 {[...Array(testimonials[current].stars)].map((_, i) => (
                   <span key={i} className="text-gold text-xl">
@@ -120,12 +79,10 @@ export default function Testimonials() {
                 ))}
               </div>
 
-              {/* Quote */}
               <blockquote className="font-display text-2xl md:text-3xl lg:text-4xl italic font-light text-white leading-snug mb-10">
                 "{testimonials[current].quote}"
               </blockquote>
 
-              {/* Author */}
               <div className="flex items-center justify-center gap-4">
                 <div
                   className="w-12 h-12 rounded-full flex items-center justify-center font-display text-lg font-semibold text-white"
@@ -147,7 +104,6 @@ export default function Testimonials() {
             </motion.div>
           </AnimatePresence>
 
-          {/* Navigation */}
           <div className="flex items-center justify-between mt-8">
             <button
               onClick={prev}
@@ -157,7 +113,6 @@ export default function Testimonials() {
               <FiChevronLeft size={20} />
             </button>
 
-            {/* Dots */}
             <div className="flex gap-2">
               {testimonials.map((_, i) => (
                 <button
@@ -183,7 +138,6 @@ export default function Testimonials() {
           </div>
         </div>
 
-        {/* Mini cards (visible on larger screens) */}
         <div className="hidden lg:grid grid-cols-3 gap-4 mt-12">
           {testimonials.slice(0, 3).map((t, i) => (
             <motion.button

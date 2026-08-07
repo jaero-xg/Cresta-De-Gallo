@@ -76,7 +76,6 @@ export default function Journey() {
       style={{ background: "var(--sand)" }}
       aria-label="The Journey"
     >
-      {/* Decorative ocean illustration — desktop only */}
       <motion.div
         className="absolute right-0 top-0 bottom-0 w-1/2 pointer-events-none hidden lg:block"
         style={{ x: bgX }}
@@ -129,7 +128,6 @@ export default function Journey() {
 
       <div className="max-w-7xl mx-auto px-5 sm:px-6">
         <div className="grid md:grid-cols-2 gap-12 md:gap-20 items-start">
-          {/* Left: Heading block */}
           <div>
             <motion.div
               initial={{ opacity: 0, x: -20 }}
@@ -167,7 +165,6 @@ export default function Journey() {
               noise fades away.
             </motion.p>
 
-            {/* Time estimate pills */}
             <motion.div
               className="mt-8 sm:mt-10 inline-flex items-center gap-4 border border-ocean/15 rounded-2xl px-5 sm:px-6 py-3.5 sm:py-4"
               initial={{ opacity: 0 }}
@@ -195,7 +192,6 @@ export default function Journey() {
             </motion.div>
           </div>
 
-          {/* Right: Timeline steps */}
           <div className="relative flex flex-col mt-2 md:mt-0">
             {steps.map((step, i) => (
               <StepCard

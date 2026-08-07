@@ -1,73 +1,6 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import {
-  FiMapPin,
-  FiCalendar,
-  FiInfo,
-  FiActivity,
-  FiAlertTriangle,
-} from "react-icons/fi";
-
-const cards = [
-  {
-    icon: FiMapPin,
-    title: "Location",
-    color: "#00A8CC",
-    items: [
-      "Cresta de Gallo Island",
-      "Municipality of San Fernando",
-      "Romblon Province, Philippines",
-      "Sibuyan Sea, MIMAROPA Region",
-    ],
-  },
-  {
-    icon: FiCalendar,
-    title: "Best Time to Visit",
-    color: "#FFB84C",
-    items: [
-      "November to May (dry season)",
-      "Peak: January–April",
-      "Calmest seas: February–March",
-      "Avoid June–October (typhoon season)",
-    ],
-  },
-  {
-    icon: FiActivity,
-    title: "Activities",
-    color: "#2F855A",
-    items: [
-      "Snorkeling & freediving",
-      "Beach camping overnight",
-      "Island hopping by banca",
-      "Nature photography",
-      "Birdwatching at dawn",
-    ],
-  },
-  {
-    icon: FiInfo,
-    title: "How to Get There",
-    color: "#003B73",
-    items: [
-      "Manila → Romblon by ferry",
-      "Romblon → Sibuyan by ferry",
-      "Sab Fernando → Cresta de Gallo by bangka",
-      "Total: 12–18 hours from Manila",
-    ],
-  },
-  {
-    icon: FiAlertTriangle,
-    title: "Travel Tips",
-    color: "#e05f00",
-    items: [
-      "Bring all food, water & supplies",
-      "No electricity or resorts on island",
-      "Leave no trace — pack out all waste",
-      "Hire local boatmen from Cajidiocan",
-      "Check weather before departure",
-    ],
-  },
-];
-
+import { cards } from "../context/travelGuideData";
 export default function TravelGuide() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-60px" });
@@ -117,7 +50,6 @@ export default function TravelGuide() {
           </motion.p>
         </div>
 
-        {/* Cards masonry-ish grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {cards.map((card, i) => (
             <motion.div
@@ -134,7 +66,6 @@ export default function TravelGuide() {
                 WebkitBackdropFilter: "blur(12px)",
               }}
             >
-              {/* Card header */}
               <div
                 className="px-7 py-5 flex items-center gap-3"
                 style={{ background: `${card.color}18` }}
@@ -150,7 +81,6 @@ export default function TravelGuide() {
                 </h3>
               </div>
 
-              {/* Card body */}
               <ul className="px-7 py-5 space-y-3">
                 {card.items.map((item) => (
                   <li
@@ -168,7 +98,6 @@ export default function TravelGuide() {
             </motion.div>
           ))}
 
-          {/* Map placeholder card */}
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -176,7 +105,6 @@ export default function TravelGuide() {
             className="rounded-3xl overflow-hidden border border-white/80 shadow-sm md:col-span-2 lg:col-span-1 relative"
             style={{ minHeight: "240px" }}
           >
-            {/* Google Maps embed */}
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d121431.45504441625!2d122.65154367493777!3d12.223683434210711!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33a44956a82e361d%3A0x6294a619a3a16136!2sCresta%20de%20Gallo!5e0!3m2!1sen!2sph!4v1780128907215!5m2!1sen!2sph"
               className="absolute inset-0 w-full h-full border-0"
